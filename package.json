@@ -1,10 +1,11 @@
 {
   "name": "mbot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Modular Bot",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "preversion": "npm test"
   },
   "keywords": [
     "modular",
