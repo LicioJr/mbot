@@ -1,0 +1,23 @@
+{
+  "name": "mbot",
+  "version": "0.0.2",
+  "description": "Modular Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "keywords": [
+    "modular",
+    "chatbot",
+    "bot"
+  ],
+  "author": "liciojr",
+  "license": "LGPLv3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liciojr/mbot.git"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
