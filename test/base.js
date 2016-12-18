@@ -4,6 +4,6 @@ let assert = require('assert'),
 describe('base', function() {
     it('hello(hi)', function(){
         let text = index.hello('hi');
-        assert.strictEqual(text, 'v0.0.2: hi', text);
+        assert.strictEqual(text, 'v0.0.4: hi', text);
     });
 })
