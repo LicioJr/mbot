@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "loader": {
+        "bot_modules": "*"
+    },
+    "logger": {
+        "type": "winston",
+        "settings": {
+            "level": "debug",
+            "loggers": {
+                "console": {
+                    "label": "mbot",
+                    "colorize": true
+                },
+                "file": {
+                    "label": "mbot",
+                    "filename": "dev.log"
+                }
+            }
+        }
+    }
+}

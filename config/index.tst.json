@@ -1,0 +1,21 @@
+{
+    "version": 1,
+    "loader": {
+        "bot_modules": {
+            "examples": "."
+        }
+    },
+    "logger": {
+        "type": "winston",
+        "settings": {
+            "level": "error",
+            "loggers": {
+                "file": {
+                    "label": "mbot",
+                    "filename": "tst.log",
+                    "level": "error"
+                }
+            }
+        }
+    }
+}

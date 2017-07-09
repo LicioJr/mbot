@@ -1,0 +1,19 @@
+{
+    "baseUrl": "http://freegeoip.net/json/",
+    "logger": {
+        "type": "winston",
+        "settings": {
+            "level": "debug",
+            "loggers": {
+                "console": {
+                    "label": "geo_console",
+                    "colorize": true
+                },
+                "file": {
+                    "label": "geo_file",
+                    "filename": "geo.log"
+                }
+            }
+        }
+    }    
+}

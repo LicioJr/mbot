@@ -1,0 +1,48 @@
+{
+    "brain": {
+        "message": {
+            "welcome": "What can I do for you today?",
+            "unknown": "Could you please be more specific?",
+            "error": "Sorry, module '{0}' has failed."
+        },
+        "admin": {
+            "users": [
+                "admin@localhost"
+            ],
+            "command": {
+                "quit": "q"
+            }
+        },
+        "global": {
+            "command": {
+                "help": "help"
+            }
+        }
+    },
+    "nlp": {
+        "type": "bayes",
+        "stemmer": "node_modules/natural/lib/natural/stemmers/porter_stemmer.js"
+    },
+    "adapter": {
+        "type": "rest",
+        "get": "/mbot",
+        "port": 8080
+    },
+    "db": {
+        "adapters": {
+            "adap-disk": "sails-disk"
+        },
+        "connections": {
+            "default": {
+                "adapter": "adap-disk",
+                "filePath": ".tmp/",
+                "inMemoryOnly": true
+            }
+        },
+        "defaults": {
+            "migrate": "drop",
+            "autoCreatedAt": true,
+            "autoUpdatedAt": true
+        }
+    }
+}

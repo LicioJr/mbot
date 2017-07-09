@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Documentation Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Documentation</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-lib_index.html">lib/index</a></li><li><a href="module-util_format.html">util/format</a></li><li><a href="module-util_html.html">util/html</a></li><li><a href="module-util_http.html">util/http</a></li><li><a href="module-util_nlp.html">util/nlp</a></li><li><a href="module-util_spreadsheet.html">util/spreadsheet</a></li><li><a href="module-util_test.html">util/test</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="db.html">db</a></li><li><a href="logger.html">logger</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>MBot</h1><p>A modular bot framework.</p>
+<p>Git Repository: <a href="https://github.com/liciojr/mbot">https://github.com/liciojr/mbot</a></p>
+<p>NPM Package: <a href="https://www.npmjs.com/package/mbot">https://www.npmjs.com/package/mbot</a></p>
+<h2>Setup</h2><h3>Quick Start</h3><ol>
+<li>Clone this repository;</li>
+<li>Install dependencies: <code>npm i</code></li>
+<li>Start: <code>npm start</code></li>
+</ol>
+<h3>New Project</h3><ol>
+<li>Create a project:<ul>
+<li><code>npm init -y</code>;</li>
+</ul>
+</li>
+<li>Install library and dependencies:<ul>
+<li><code>npm i --save mbot</code></li>
+</ul>
+</li>
+<li>Create json configuration files in <strong>/config</strong> (default 'dev' environment);</li>
+<li>Create javascript modules in <strong>/bot_modules</strong> and <strong>/kb</strong>;</li>
+<li>Create app.js with:<ul>
+<li><code>require('mbot').init();</code></li>
+</ul>
+</li>
+<li>Run:<ul>
+<li><code>node app.js</code></li>
+</ul>
+</li>
+</ol>
+<h2>Features</h2><ul>
+<li>modular structure (e.g. communication, knowledge base, classifier, utilities), facilitating collaborative working;</li>
+<li>centralized multi-environment configuration;</li>
+<li>flexible integrated logging;</li>
+<li>universal database abstraction (Sails Waterline) for relational and NoSQL databases;</li>
+<li>global filesystem overlay;</li>
+<li>automatic lifecycle management with asynchronous init/dispose;</li>
+<li>extensible adapters (e.g. console, rest, xmpp, test);</li>
+<li>helper plugins (e.g. logger, HTML parser/scraper, spreadsheet reader, test stub, HTTP/HTTPS).</li>
+</ul>
+<h3>Configuration</h3><ul>
+<li>plain <a href="http://www.json.org/">JSON</a> format;</li>
+<li>standard path convention (<code>/config/dir/name.{env}.json</code>);</li>
+<li>extensible configuration, with <strong>MBOT_NODE_ENV</strong> and <strong>MBOT_NODE_ENV_ALT</strong> environment variables (allow partial redefinition);</li>
+<li>built-in environments:<ul>
+<li><code>dev</code>: development (default)</li>
+<li><code>tst</code>: test automation</li>
+<li><code>prd</code>: production</li>
+</ul>
+</li>
+<li>automatic init setup with <code>config</code> modules property;</li>
+<li>system variable support in any value, replaced at runtime in <code>mbot.config</code> loader:<pre class="prettyprint source lang-json"><code>{
+  ...
+  &quot;key&quot;: &quot;${ENV_VAR_X}&quot;
+  ...</code></pre></li>
+</ul>
+<h3>Logging</h3><ul>
+<li>'util/logger' helper with integrated configuration;</li>
+<li>shared use with core <code>mbot.logger()</code>;</li>
+<li>allow multiple transport channels and categories.</li>
+</ul>
+<h3>Database Abstraction</h3><ul>
+<li>'util/db' helper for direct <a href="https://github.com/balderdashy/waterline">Waterline</a> integration (without <a href="http://sailsjs.com/">Sails</a>);</li>
+<li>multiple relational (MySQL, PostgreSQL, FileMaker, Apache Derby, ...) and NoSQL (MongoDB, Redis, OrientDB, ...) database adapters, with same interface;</li>
+<li>multiple source model integration;</li>
+<li>allow <a href="http://sailsjs.com/documentation/concepts/extending-sails/adapters/custom-adapters">custom adapters</a> creation;</li>
+<li>built-in (zero configuration) disk/memory adapter for fast prototyping and test automation.</li>
+</ul>
+<h3>Overlay and Lifecycle Management</h3><ul>
+<li>core function <code>mbot.load</code> uses filesystem overlay (<code>mbot.path</code>) to import (require) a module, and save its init/dispose callback (if exists);</li>
+<li>async single/multiple initialization, to instant or previous loaded modules (<code>mbot.init</code>);</li>
+<li>async global dispose (<code>mbot.dispose</code>).</li>
+</ul>
+<h3>Adapters</h3><p>Modules in <strong>/adapters</strong> folder, with <code>init</code> and <code>onEvent</code> (observer pattern) functions, allowing easily creation of custom adapters.</p>
+<p>Choose and configure in <strong>config/core/brain.{env}.json</strong> file, at <code>adapter.type</code> key.</p>
+<p>Built-in adapters:</p>
+<ul>
+<li><strong>console.js</strong> - command-line interface adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
+      &quot;type&quot;: &quot;console&quot;,
+      &quot;from&quot;: &quot;admin@localhost&quot;,
+      &quot;prompt&quot;: &quot;[question] &quot;
+  }</code></pre></li>
+<li><strong>xmpp.js</strong> - XMPP protocol adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
+      &quot;type&quot;: &quot;xmpp&quot;,
+      &quot;setPresence&quot;: {
+          &quot;status&quot;: &quot;chat&quot;,
+          &quot;text&quot;: &quot;alpha version&quot;
+      },
+      &quot;settings&quot;: {
+          &quot;jid&quot;: &quot;mbot@localhost&quot;,
+          &quot;password&quot;: &quot;${MBOT_XMPP_PWD}&quot;,
+          &quot;host&quot;: &quot;localhost&quot;,
+          &quot;port&quot;: 5222            
+      }
+  }</code></pre></li>
+<li><strong>rest.js</strong> - REST service adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
+      &quot;type&quot;: &quot;rest&quot;,
+      &quot;get&quot;: &quot;/mbot&quot;,
+      &quot;port&quot;: 8080
+  }</code></pre></li>
+<li><strong>test.js</strong> - Test automation adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
+      &quot;type&quot;: &quot;test&quot;,
+      &quot;from&quot;: &quot;usr1&quot;
+  }</code></pre></li>
+</ul>
+<h2>Architecture</h2><p>The solution has the following structure:</p>
+<p><img src="block_diagram.png" alt="block_diagram"></p>
+<ul>
+<li><strong>config</strong>: central configuration directory ({module}.{environment}.json format);</li>
+<li><strong>adapters</strong>: front-end modules (e.g. XMPP, REST, Console);</li>
+<li><strong>bot_modules</strong>: communication modules (specialized dialogs);</li>
+<li><strong>kb</strong>: <a href="https://en.wikipedia.org/wiki/Knowledge_base">knowledge base</a>;</li>
+<li><strong>lib/core</strong>: asynchronous core and subsystems facade;</li>
+<li><strong>nlp</strong>: <a href="https://en.wikipedia.org/wiki/Natural_language_processing">natural language processing</a> modules;</li>
+<li><strong>util</strong>: utilities (e.g. HTML extractor, spreadsheet reader, HTTP consumer, database integration, logger).</li>
+</ul>
+<p>Applications should focus on <strong>bot_modules</strong> and <strong>kb</strong> sections. </p>
+<h3>Workflow Summary</h3><p>A main controller (<code>lib/core/brain</code>) execute the following tasks:</p>
+<ol>
+<li>read <code>config/core/brain.{env}.json</code> configuration;</li>
+<li>load model and open database configured in <code>db</code> key;</li>
+<li>invoke core loader (<code>lib/index</code>) to fetch configured modules in <code>loader.bot_modules</code> key from <code>config/index.{env}.json</code>;</li>
+<li>load language module configured in <code>nlp</code> key;</li>
+<li>invoke core asynchronous global init;</li>
+<li>load and start adapter configured in <code>adapter</code> key;</li>
+<li>register adapter <code>onReply</code> event and wait for requests.</li>
+</ol>
+<p>For each request, the main controller creates a <strong>dialog</strong> object with some properties:</p>
+<pre class="prettyprint source lang-json"><code>{
+    from: 'user abc',
+    text: 'question xyz',
+    bots: {},
+    action: '',
+    entities: [],
+    nonEntities; []
+}</code></pre><p>The language module fills action/entities/nonEntities fields information, and <code>bots</code> property with a list of compatible <strong>communication modules</strong>. By default, following rules apply:</p>
+<ul>
+<li>if none or 3+ modules are compatible, will return <code>brain.message.unknown</code> configured message;</li>
+<li>if 2 modules are compatible, will return help text from this modules, for user refinement;</li>
+<li>if only one module is compatible, it will be invoked to format a reply.</li>
+</ul>
+<h3>Collaborative Work</h3><p>The framework was designed to allow multiple concurrent development on the same repository. To accomplish this, follow these steps:</p>
+<ul>
+<li>define a user tag, example: <code>u01</code>;</li>
+<li>clone <code>bot_modules/templates/hello_bot</code> to <code>bot_modules/u01/hello_bot</code>, replacing &quot;template&quot; with &quot;u01&quot; in <em>keywords</em> array:<pre class="prettyprint source lang-javascript"><code>module.exports = {
+  keywords: ['u01'],
+  reply
+}</code></pre></li>
+<li>clone <code>config/index.template.json</code> to <code>config/index.u01.json</code>, replacing &quot;templates&quot; with &quot;u01&quot; in &quot;loader.bot_modules&quot; section:<pre class="prettyprint source lang-json"><code>{
+  &quot;loader&quot;: {
+      &quot;bot_modules&quot;: {
+          &quot;u01&quot;: &quot;*&quot;
+      },
+      ...</code></pre></li>
+<li>define environment variable <strong>MBOT_NODE_ENV</strong> with <strong>u01</strong>, and start MBOT;</li>
+<li>type &quot;u01&quot; to receive a welcome message;</li>
+<li>to customize main controller features, clone <code>config/core/brain.template.json</code> to <code>config/core/brain.u01.json</code>, replacing whatever you want;</li>
+<li>any Knowledge Base modules in <code>kb/*</code> can be used, or a new directory <code>kb/u01</code> can be created to add new ones.</li>
+</ul>
+<h2>Bot Modules</h2><h3>NLP Modules</h3><p>Configure a Natural Language Processing module with <code>nlp.type</code> key in <code>config/core/brain.{env}.json</code> file, example:</p>
+<pre class="prettyprint source lang-json"><code>    &quot;nlp&quot;: {
+        &quot;type&quot;: &quot;bayes&quot;,
+        &quot;stemmer&quot;: &quot;node_modules/natural/lib/natural/stemmers/porter_stemmer.js&quot;
+    }</code></pre><p>Built-in modules:</p>
+<ul>
+<li><code>nlp/hashtag</code>: deterministic classifier, based on rules;</li>
+<li><code>nlp/bayes</code>: natural classifier, with Naive-Bayes algorithm.</li>
+</ul>
+<p>To create a NLP module, implement a <code>classify</code> function in <code>nlp</code> folder, with 2 arguments: a dialog and a callback. Remember to configure <code>nlp.type</code> key.</p>
+<p>Current Named Entity Recognition use a simplified rule set:</p>
+<ul>
+<li>text between quotes, example:<ul>
+<li><code>how old is &quot;Peter Parker&quot;?</code><ul>
+<li>[&quot;Peter Parker&quot;]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>simple number, example:<ul>
+<li><code>sum 5 and 6</code><ul>
+<li>[&quot;5&quot;, &quot;6&quot;]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>uppercase word, except sentence starter, example:<ul>
+<li><code>What is Peter phone?</code><ul>
+<li>[&quot;Peter&quot;]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Communication Modules</h3><p>Files under <code>bot_modules</code> folder, with following interface:</p>
+<ul>
+<li>Required: <ul>
+<li><code>keywords</code> property (string array): first element required (master keyword for deterministic classifier). Other keywords used for natural language classifier;</li>
+<li><code>reply(dialog, callback)</code> function;</li>
+</ul>
+</li>
+<li>Optional:<ul>
+<li><code>actions</code> property (object): action dictionary, each entry with keywords string/array;</li>
+<li><code>help</code> property (string): help text.</li>
+</ul>
+</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><strong>currency_bot.js</strong> - display a list of countries related to a currency symbol, example:<ul>
+<li><code>which countries use &quot;GBP&quot; currency?</code></li>
+<li><code>&quot;BRL&quot; country</code></li>
+</ul>
+</li>
+<li><strong>degree_bot.js</strong> - temperature conversion bot, examples:<ul>
+<li><code>95 to celsius</code></li>
+<li><code>35 to fahrenheit</code></li>
+</ul>
+</li>
+<li><strong>echo_bot.js</strong> - simple echo message, example:<ul>
+<li><code>some echo here</code></li>
+</ul>
+</li>
+<li><strong>geo_bot.js</strong> - display your/some IP address location, examples:<ul>
+<li><code>my address?</code></li>
+<li><code>ip of &quot;github.com&quot;</code></li>
+</ul>
+</li>
+<li><strong>google_bot.js</strong> - show latest technology news from google site, example:<ul>
+<li><code>tech news</code></li>
+</ul>
+</li>
+<li><strong>hobby_bot.js</strong> - user hobby list manager, examples:<ul>
+<li><code>please, include a new hobby for me: Carpentry</code></li>
+<li><code>show my hobbies</code></li>
+</ul>
+</li>
+</ul>
+<h3>Knowledge Base Modules</h3><p>Any file under <code>kb</code> folder. Examples:</p>
+<ul>
+<li><strong>currency_kb.js</strong> - use <code>util/spreadsheet</code> internal helper to read information from a spreadsheet file;</li>
+<li><strong>degree_kb.js</strong> - use <code>soap</code> external library to consume a public SOAP webservice at <a href="http://www.webservicex.net/ConvertTemperature.asmx?WSDL">webservicex.net</a>;</li>
+<li><strong>geo_kb.js</strong> - use nodejs native <code>http</code> to consume a public REST service at <a href="http://freegeoip.net">http://freegeoip.net</a>;</li>
+<li><strong>google_kb.js</strong> - use <code>util/webparser</code> internal helper to extract information from a <a href="https://news.google.com/news/section?topic=t&amp;ned=ca">Google HTML page</a>;</li>
+<li><strong>hobby_kb.js</strong> - use <code>util/db</code> internal helper to interact with a database.</li>
+</ul>
+<h2>Tests</h2><p>First time, type <code>npm install</code> to fetch dependencies, then type <code>npm test</code>.</p>
+<p>Test support:</p>
+<ul>
+<li><strong>adapters/test.js</strong>: expose &quot;request&quot; method for test automation;</li>
+<li><strong>util/test.js</strong>: utility helper for test implementation, compatible with Mocha framework;</li>
+<li><strong>test/examples/*</strong>: implementation examples.</li>
+</ul>
+<h2>License</h2><p>GNU Lesser General Public License (LGPL), version 3 or later.</p>
+<p>See the LICENSE file in the root directory or <a href="https://www.gnu.org/licenses/lgpl.html">https://www.gnu.org/licenses/lgpl.html</a>.</p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	MBOT - Modular Bot Framework
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "loader": {
+        "bot_modules": {
+            "templates": "*"
+        }
+    },
+    "logger": {
+        "type": "winston",
+        "settings": {
+            "level": "debug",
+            "loggers": {
+                "console": {
+                    "label": "mbot",
+                    "colorize": true
+                }
+            }
+        }
+    }
+}

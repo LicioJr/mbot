@@ -1,0 +1,44 @@
+{
+  "data": {
+    "user": [
+      {
+        "name": "usr1",
+        "hobbies": [
+          "tst1",
+          "tst2"
+        ],
+        "createdAt": "2017-04-08T14:39:56.393Z",
+        "updatedAt": "2017-04-08T14:56:55.087Z",
+        "id": 3
+      }
+    ]
+  },
+  "schema": {
+    "user": {
+      "name": {
+        "type": "string"
+      },
+      "hobbies": {
+        "type": "json",
+        "defaultsTo": []
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "user": {
+      "id": 3
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "source": {
+        "include": [
+            "README.md",
+            "lib",
+            "util"
+        ]
+    },
+    "opts": {
+        "destination": "docs",
+        "template": "./node_modules/ink-docstrap/template"
+    },
+    "templates": {
+        "theme": "cosmo",
+        "copyright": "MBOT - Modular Bot Framework",
+        "includeDate": false,
+        "linenums": true,
+        "default": {
+            "outputSourceFiles": false
+        }
+    }
+}

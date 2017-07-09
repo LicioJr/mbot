@@ -1,0 +1,46 @@
+{
+    "brain": {
+        "message": {
+            "welcome": "What can I do for you today?",
+            "unknown": "Could you please be more specific?",
+            "error": "Sorry, module '{0}' has failed."
+        },
+        "admin": {
+            "users": [
+                "usr1"
+            ],
+            "command": {
+                "quit": "q"
+            }
+        },
+        "global": {
+            "command": {
+                "help": "help"
+            }
+        }
+    },
+    "nlp": {
+        "type": "bayes"
+    },
+    "adapter": {
+        "type": "test",
+        "from": "usr1"
+    },
+    "db": {
+        "adapters": {
+            "adap-disk": "sails-disk"
+        },
+        "connections": {
+            "default": {
+                "adapter": "adap-disk",
+                "filePath": ".tmp/",
+                "inMemoryOnly": true
+            }
+        },
+        "defaults": {
+            "migrate": "drop",
+            "autoCreatedAt": true,
+            "autoUpdatedAt": true
+        }
+    }
+}

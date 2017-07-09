@@ -1,0 +1,19 @@
+{
+    "db": {
+        "adapters": {
+            "adap-disk": "sails-disk"
+        },
+        "connections": {
+            "hobby": {
+                "adapter": "adap-disk",
+                "filePath": "test/examples/resources/",
+                "inMemoryOnly": true
+            }
+        },
+        "defaults": {
+            "migrate": "safe",
+            "autoCreatedAt": true,
+            "autoUpdatedAt": true
+        }
+    }
+}

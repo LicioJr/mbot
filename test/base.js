@@ -1,9 +1,0 @@
-let assert = require('assert'),
-    index = require('../index');
-
-describe('base', function() {
-    it('hello(hi)', function(){
-        let text = index.hello('hi');
-        assert.strictEqual(text, 'v0.0.4: hi', text);
-    });
-})

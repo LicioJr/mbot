@@ -1,0 +1,13 @@
+{
+    "wsdl": "/resources/ConvertTemperature.wsdl",
+    "mock": {
+        "ToUnit": {
+            "degreeFahrenheit": {
+                "35": "95"
+            },
+            "degreeCelsius": {
+                "95": "35"
+            }
+        }
+    }
+}

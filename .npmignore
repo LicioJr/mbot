@@ -1,0 +1,17 @@
+.docs
+.git
+.tmp
+.vscode
+bot_modules
+config/examples
+docs
+kb
+node_modules
+test
+test_extra
+.gitignore
+.npmignore
+jsdoc.json
+server.js
+*.log
+*.tgz
