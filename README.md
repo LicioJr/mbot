@@ -49,11 +49,9 @@ NPM Package: [https://www.npmjs.com/package/mbot](https://www.npmjs.com/package/
     * `prd`: production
 * automatic init setup with `config` modules property;
 * system variable support in any value, replaced at runtime in `mbot.config` loader:
-```json
+```javascript
 {
-    ...
     "key": "${ENV_VAR_X}"
-    ...
 ```
 
 ### Logging
@@ -154,14 +152,14 @@ A main controller (`lib/core/brain`) execute the following tasks:
 
 For each request, the main controller creates a **dialog** object with some properties:
 
-```json
+```javascript
 {
     from: 'user abc',
     text: 'question xyz',
     bots: {},
     action: '',
     entities: [],
-    nonEntities; []
+    nonEntities: []
 }
 ```
 
@@ -184,13 +182,12 @@ module.exports = {
 }
 ```
 * clone `config/index.template.json` to `config/index.u01.json`, replacing "templates" with "u01" in "loader.bot_modules" section:
-```json
+```javascript
 {
     "loader": {
         "bot_modules": {
             "u01": "*"
         },
-        ...
 ```
 * define environment variable **MBOT_NODE_ENV** with **u01**, and start MBOT;
 * type "u01" to receive a welcome message;
@@ -221,13 +218,13 @@ Current Named Entity Recognition use a simplified rule set:
 
 * text between quotes, example:
     * `how old is "Peter Parker"?`
-        * ["Peter Parker"]
+        * entities `["Peter Parker"]`
 * simple number, example:
     * `sum 5 and 6`
-        * ["5", "6"]
+        * entities `["5", "6"]`
 * uppercase word, except sentence starter, example:
     * `What is Peter phone?`
-        * ["Peter"]
+        * entities `["Peter"]`
 
 ### Communication Modules
 
@@ -263,11 +260,11 @@ Examples:
 
 Any file under `kb` folder. Examples:
 
-* **currency_kb.js** - use `util/spreadsheet` internal helper to read information from a spreadsheet file;
+* **currency_kb.js** - use `util/spreadsheet` helper to read information from a spreadsheet file;
 * **degree_kb.js** - use `soap` external library to consume a public SOAP webservice at [webservicex.net](http://www.webservicex.net/ConvertTemperature.asmx?WSDL);
-* **geo_kb.js** - use nodejs native `http` to consume a public REST service at [http://freegeoip.net](http://freegeoip.net);
-* **google_kb.js** - use `util/webparser` internal helper to extract information from a [Google HTML page](https://news.google.com/news/section?topic=t&ned=ca);
-* **hobby_kb.js** - use `util/db` internal helper to interact with a database.
+* **geo_kb.js** - use `util/http` helper to consume a public REST service at [http://freegeoip.net](http://freegeoip.net);
+* **google_kb.js** - use `util/html` helper to extract information from a [Google HTML page](https://news.google.com/news/section?topic=t&ned=ca);
+* **hobby_kb.js** - use `util/db` helper to interact with a database.
 
 ## Tests
 

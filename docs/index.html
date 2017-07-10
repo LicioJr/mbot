@@ -142,10 +142,8 @@
 </ul>
 </li>
 <li>automatic init setup with <code>config</code> modules property;</li>
-<li>system variable support in any value, replaced at runtime in <code>mbot.config</code> loader:<pre class="prettyprint source lang-json"><code>{
-  ...
-  &quot;key&quot;: &quot;${ENV_VAR_X}&quot;
-  ...</code></pre></li>
+<li>system variable support in any value, replaced at runtime in <code>mbot.config</code> loader:<pre class="prettyprint source lang-javascript"><code>{
+  &quot;key&quot;: &quot;${ENV_VAR_X}&quot;</code></pre></li>
 </ul>
 <h3>Logging</h3><ul>
 <li>'util/logger' helper with integrated configuration;</li>
@@ -219,13 +217,13 @@
 <li>register adapter <code>onReply</code> event and wait for requests.</li>
 </ol>
 <p>For each request, the main controller creates a <strong>dialog</strong> object with some properties:</p>
-<pre class="prettyprint source lang-json"><code>{
+<pre class="prettyprint source lang-javascript"><code>{
     from: 'user abc',
     text: 'question xyz',
     bots: {},
     action: '',
     entities: [],
-    nonEntities; []
+    nonEntities: []
 }</code></pre><p>The language module fills action/entities/nonEntities fields information, and <code>bots</code> property with a list of compatible <strong>communication modules</strong>. By default, following rules apply:</p>
 <ul>
 <li>if none or 3+ modules are compatible, will return <code>brain.message.unknown</code> configured message;</li>
@@ -239,12 +237,11 @@
   keywords: ['u01'],
   reply
 }</code></pre></li>
-<li>clone <code>config/index.template.json</code> to <code>config/index.u01.json</code>, replacing &quot;templates&quot; with &quot;u01&quot; in &quot;loader.bot_modules&quot; section:<pre class="prettyprint source lang-json"><code>{
+<li>clone <code>config/index.template.json</code> to <code>config/index.u01.json</code>, replacing &quot;templates&quot; with &quot;u01&quot; in &quot;loader.bot_modules&quot; section:<pre class="prettyprint source lang-javascript"><code>{
   &quot;loader&quot;: {
       &quot;bot_modules&quot;: {
           &quot;u01&quot;: &quot;*&quot;
-      },
-      ...</code></pre></li>
+      },</code></pre></li>
 <li>define environment variable <strong>MBOT_NODE_ENV</strong> with <strong>u01</strong>, and start MBOT;</li>
 <li>type &quot;u01&quot; to receive a welcome message;</li>
 <li>to customize main controller features, clone <code>config/core/brain.template.json</code> to <code>config/core/brain.u01.json</code>, replacing whatever you want;</li>
@@ -264,21 +261,21 @@
 <ul>
 <li>text between quotes, example:<ul>
 <li><code>how old is &quot;Peter Parker&quot;?</code><ul>
-<li>[&quot;Peter Parker&quot;]</li>
+<li>entities <code>[&quot;Peter Parker&quot;]</code></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>simple number, example:<ul>
 <li><code>sum 5 and 6</code><ul>
-<li>[&quot;5&quot;, &quot;6&quot;]</li>
+<li>entities <code>[&quot;5&quot;, &quot;6&quot;]</code></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>uppercase word, except sentence starter, example:<ul>
 <li><code>What is Peter phone?</code><ul>
-<li>[&quot;Peter&quot;]</li>
+<li>entities <code>[&quot;Peter&quot;]</code></li>
 </ul>
 </li>
 </ul>
@@ -330,11 +327,11 @@
 </ul>
 <h3>Knowledge Base Modules</h3><p>Any file under <code>kb</code> folder. Examples:</p>
 <ul>
-<li><strong>currency_kb.js</strong> - use <code>util/spreadsheet</code> internal helper to read information from a spreadsheet file;</li>
+<li><strong>currency_kb.js</strong> - use <code>util/spreadsheet</code> helper to read information from a spreadsheet file;</li>
 <li><strong>degree_kb.js</strong> - use <code>soap</code> external library to consume a public SOAP webservice at <a href="http://www.webservicex.net/ConvertTemperature.asmx?WSDL">webservicex.net</a>;</li>
-<li><strong>geo_kb.js</strong> - use nodejs native <code>http</code> to consume a public REST service at <a href="http://freegeoip.net">http://freegeoip.net</a>;</li>
-<li><strong>google_kb.js</strong> - use <code>util/webparser</code> internal helper to extract information from a <a href="https://news.google.com/news/section?topic=t&amp;ned=ca">Google HTML page</a>;</li>
-<li><strong>hobby_kb.js</strong> - use <code>util/db</code> internal helper to interact with a database.</li>
+<li><strong>geo_kb.js</strong> - use <code>util/http</code> helper to consume a public REST service at <a href="http://freegeoip.net">http://freegeoip.net</a>;</li>
+<li><strong>google_kb.js</strong> - use <code>util/html</code> helper to extract information from a <a href="https://news.google.com/news/section?topic=t&amp;ned=ca">Google HTML page</a>;</li>
+<li><strong>hobby_kb.js</strong> - use <code>util/db</code> helper to interact with a database.</li>
 </ul>
 <h2>Tests</h2><p>First time, type <code>npm install</code> to fetch dependencies, then type <code>npm test</code>.</p>
 <p>Test support:</p>
