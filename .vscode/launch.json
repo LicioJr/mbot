@@ -11,7 +11,10 @@
             "program": "${workspaceRoot}/server.js",
             "cwd": "${workspaceRoot}",
             "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "MBOT_NODE_ENV": "tmp"
+            }
         },
         {
             "name": "Tests (tst)",

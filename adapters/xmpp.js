@@ -22,15 +22,32 @@ let mbot = require('../lib'),
 // private
 let _listener;
 let _onSubscribe;
+let _authorized = {}; // boolean dictionary of (un)authorized users
 
 function auth(from, authorized) {
     let word = '';
-    if (authorized)
+    if (authorized) {
         xmpp.acceptSubscription(from);
-    else
+    } else {
+        xmpp.acceptUnsubscription(from);
         word = 'not ';
-
+    }
+    _authorized[from] = authorized;
     log.info(`XMPPAdapter: ${from} ${word}authorized.`);
+}
+
+function send(ii) {
+    let authorized = _authorized[ii.from];
+    if (authorized === false)
+        log.info(`XMPPAdapter.ignored: ${ii.from}`);
+    else
+        return _listener(ii, function(er, oo) {
+            if (er) { // close
+                xmpp.send(ii.from, 'bye');
+                xmpp.disconnect();
+            } else
+                xmpp.send(ii.from, oo.text);
+        });
 }
 
 function init(config_adapter, cb) {
@@ -44,21 +61,29 @@ function init(config_adapter, cb) {
         if (p) // ['away', 'dnd', 'xa', 'chat']
             xmpp.setPresence(p.status, p.text);
 
-        // xmpp.unsubscribe('pidgin@localhost'); // test
-        // let roster = xmpp.getRoster();
+        /* debug 
+        xmpp.unsubscribe('dummy@localhost');
+        let roster = xmpp.getRoster();
+        xmpp.on('stanza', function(stanza) {
+            console.log(stanza);
+        });
+        */
         cb();
     });
 
     xmpp.on('chat', function(from, text) {
-        // ToDo: block unauthorized from.
-        
-        _listener({ from, text }, function(er, oo) {
-            if (er) { // close
-                xmpp.send(from, 'bye');
-                xmpp.disconnect();
-            } else
-                xmpp.send(from, oo.text);
-        });
+        // dont reply unauthorized users
+        if (_authorized[from] === undefined && _onSubscribe instanceof Function) {
+            return _onSubscribe({from}, function(er, oo) {
+                if (er)
+                    log.error(`XMPPAdapter.onSubscribe: ${er}.`);
+                else {
+                    auth(from, oo.authorized);
+                    send({ from, text });
+                }
+            });
+        }
+        send({ from, text });
     });
 
     xmpp.on('error', function(er) {

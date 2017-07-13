@@ -1,11 +1,10 @@
 'use strict';
 /**
  * MBOT - Modular Bot Framework
- * 
  * Copyright (c) 2017 Licio Medeiros Jr. All rights reserved.
  * 
  * License: GNU Lesser General Public License (LGPL), version 3 or later.
- * See the LICENSE file in the root directory or <https://www.gnu.org/licenses/lgpl.html>.
+ * See the LICENSE file in the root directory or {@link https://www.gnu.org/licenses/lgpl.html}.
  * 
  * @description Universal database abstraction (use Sails Waterline).
  */
