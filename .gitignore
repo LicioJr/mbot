@@ -1,9 +1,11 @@
 **/*.tmp.*
+.env
 node_modules
 *.log
 *.tgz
 .jsdoc
 .tmp
+docker-compose.yml
 docs/fonts/*
 docs/styles/*
 !docs/styles/site.cosmo.css

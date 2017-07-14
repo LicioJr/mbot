@@ -4,7 +4,7 @@
   "description": "Modular Bot Framework",
   "main": "./lib",
   "scripts": {
-    "start": "cross-env MBOT_NODE_ENV=dev node server.js",
+    "start": "cross-env MBOT_NODE_ENV=tmp MBOT_NODE_ENV_ALT=dev node server.js",
     "start-xmpp": "cross-env MBOT_NODE_ENV=xmpp node server.js",
     "start-rest": "cross-env MBOT_NODE_ENV=rest node server.js",
     "test": "cross-env MBOT_NODE_ENV=tst mocha --recursive",
