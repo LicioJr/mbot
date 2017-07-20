@@ -2,6 +2,8 @@
 
 A modular bot framework.
 
+Home Page (documentation): [https://liciojr.github.io/mbot](https://liciojr.github.io/mbot)
+
 Git Repository: [https://github.com/liciojr/mbot](https://github.com/liciojr/mbot)
 
 NPM Package: [https://www.npmjs.com/package/mbot](https://www.npmjs.com/package/mbot)
@@ -10,7 +12,7 @@ NPM Package: [https://www.npmjs.com/package/mbot](https://www.npmjs.com/package/
 
 ### Quick Start
 
-1. Clone this repository;
+1. Clone the [repository](https://github.com/liciojr/mbot);
 2. Install dependencies: `npm i`
 3. Start: `npm start`
 
@@ -156,18 +158,17 @@ For each request, the main controller creates a **dialog** object with some prop
 {
     from: 'user abc',
     text: 'question xyz',
-    bots: {},
     action: '',
     entities: [],
     nonEntities: []
 }
 ```
 
-The language module fills action/entities/nonEntities fields information, and `bots` property with a list of compatible **communication modules**. By default, following rules apply:
+The language module fills entities/nonEntities fields information, and returns a list of compatible intents (**communication module** / **action**). By default, following rules apply:
 
 * if none or 3+ modules are compatible, will return `brain.message.unknown` configured message;
-* if 2 modules are compatible, will return help text from this modules, for user refinement;
-* if only one module is compatible, it will be invoked to format a reply.
+* if 2 modules/actions are compatible, will return respective help text, for user refinement;
+* if only one module/action is compatible, it will be invoked to format a reply.
 
 ### Collaborative Work
 

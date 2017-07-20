@@ -20,7 +20,7 @@ let natural = require('natural');
 // private
 let _reQuotes = /".*?"/g; // /(?:")(.*?)(?:")/g; 
 let _reNumbers = /\b\d+/g;
-let _reUppercases = /\b(?!^)[A-Z]\w+/g;
+let _reUppercases = /\b(?!^)[A-Z][#\w]+/g;
 
 /**
  * Create a Bayes Classifier object.

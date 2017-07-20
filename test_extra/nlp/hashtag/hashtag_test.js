@@ -25,6 +25,8 @@ before((done) => {
     }, done);
 });
 
+let xp_sort_intents = (a, b) => (a.bot_id + '|' + a.action) - (b.bot_id + '|' + b.action);
+
 function classify(tests) {
     tests.forEach(t => {
         it(t.title, (done) => {
@@ -35,33 +37,32 @@ function classify(tests) {
                 entities: [],
                 nonEntities: []
             }
-            hashtag.classify(dialog, (er, oo) => {
+            hashtag.classify(dialog, (er, intents) => {
                 // check bot
-                if (!oo) {
-                    assert.ok(!t.expected_bots, 'bots empty');
-                    done();
+                if (!intents) {
+                    assert.ok(!t.expected_intents, 'intents empty');
+                    return done();
                 }
-                let bot_names = Object.keys(oo.bots);
-                assert.strictEqual(bot_names.length, t.expected_bots.length, 'bots count');
-                if (bot_names.length > 0) {
-                    bot_names = bot_names.sort();
-                    t.expected_bots = t.expected_bots.sort();
-                    for (let i = 0; i < bot_names.length; i++)
-                        assert.strictEqual(bot_names[i], 
-                            t.expected_bots[i],
-                            'bots element');
-                }
+                
+                assert.strictEqual(intents.length, t.expected_intents.length, 'intents count');
 
-                // check action
-                assert.strictEqual(oo.action, t.expected_action, 'action');
+                if (intents.length > 0) {
+                    // sort and compare
+                    intents = intents.sort(xp_sort_intents);
+                    t.expected_intents = t.expected_intents.sort(xp_sort_intents);
+                    for (let i = 0; i < intents.length; i++) {
+                        assert.strictEqual(intents[i].bot_id, t.expected_intents[i].bot_id, 'bot_id');
+                        assert.strictEqual(intents[i].action, t.expected_intents[i].action, 'action');
+                    }
+                }
 
                 // check entities
-                assert.strictEqual(oo.entities.length, t.expected_entities.length, 'entities count');
-                if (oo.entities.length > 0) {
-                    oo.entities = oo.entities.sort();
+                assert.strictEqual(dialog.entities.length, t.expected_entities.length, 'entities count');
+                if (dialog.entities.length > 0) {
+                    dialog.entities = dialog.entities.sort();
                     t.expected_entities = t.expected_entities.sort();
-                    for (let i = 0; i < oo.entities.length; i++)
-                        assert.strictEqual(oo.entities[i], 
+                    for (let i = 0; i < dialog.entities.length; i++)
+                        assert.strictEqual(odialogo.entities[i], 
                             t.expected_entities[i],
                             'entities element');
                 }
@@ -76,14 +77,15 @@ describe('nlp/hashtag', () => {
         {
             title: 'action substring token',
             text: '#bot1 string action2',
-            expected_bots: ['bot1'],
-            expected_action: 'action2',
+            expected_intents: [
+                { bot_id: 'bot1', action: 'action2' }
+            ],
             expected_entities: []
         },
         {
             title: 'none',
             text: 'bot1 action2',
-            expected_bots: null
+            expected_intents: null
         }
     ]);
 });

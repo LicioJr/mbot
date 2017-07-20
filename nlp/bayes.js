@@ -36,19 +36,19 @@ function init(ii, cb) {
     _classifier = new nlp.BayesClassifier(_stemmer);
     
     // create training docs
-    for (let name in _bots) {
-        let bot = _bots[name];
+    for (let id in _bots) {
+        let bot = _bots[id];
     
         if (!bot.keywords) {
             log.error(`[nlp/bayes] module "${bot.name}" without keywords.`)
         } else {
             let kw = bot.keywords.join(' ');
             if (!bot.actions) {
-                let intent = `${name}|`;
+                let intent = `${id}|`;
                 _classifier.addDocument(kw, intent);
             } else {
                 for (let actionName in bot.actions) {
-                    let intent = `${name}|${actionName}`;
+                    let intent = `${id}|${actionName}`;
 
                     let actionData = bot.actions[actionName];
                     if (actionData instanceof Array) {
@@ -76,6 +76,8 @@ function init(ii, cb) {
 
 
 function classify(dialog, cb) {
+    let intents = [];
+
     /*******************************************************\
     | Classify
     \*******************************************************/
@@ -91,25 +93,21 @@ function classify(dialog, cb) {
 
     // Extract 1st Subject/Action
     let intent = result[0].label.split('|');
-    dialog.bots[intent[0]] = _bots[intent[0]];
-    dialog.action = intent[1];
+    intents.push({
+        bot_id: intent[0],
+        action: intent[1]
+    });
     
     // Extract other(s) Subject/Action with same rank value
     let i = 0;
     while (++i < result.length) {
         if (result[i].value != result[0].value) break;
         let intent = result[i].label.split('|');
-        dialog.bots[intent[0]] = _bots[intent[0]];
+        intents.push({
+            bot_id: intent[0],
+            action: intent[1]
+        });
     }
 
-    /*******************************************************\
-    | Extract Tokens (ignore action/entities)
-    \*******************************************************
-    dialog.tokens = [];
-    dialog.text.split(' ').forEach(token => {
-        if (token != dialog.action && !dialog.entities.includes(token))
-            dialog.tokens.push(token.toLowerCase());
-    }); */
-
-    return cb(null, dialog);
+    return cb(null, intents);
 }

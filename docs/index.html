@@ -94,10 +94,11 @@
 
     <section class="readme-section">
         <article><h1>MBot</h1><p>A modular bot framework.</p>
+<p>Home Page (documentation): <a href="https://liciojr.github.io/mbot">https://liciojr.github.io/mbot</a></p>
 <p>Git Repository: <a href="https://github.com/liciojr/mbot">https://github.com/liciojr/mbot</a></p>
 <p>NPM Package: <a href="https://www.npmjs.com/package/mbot">https://www.npmjs.com/package/mbot</a></p>
 <h2>Setup</h2><h3>Quick Start</h3><ol>
-<li>Clone this repository;</li>
+<li>Clone the <a href="https://github.com/liciojr/mbot">repository</a>;</li>
 <li>Install dependencies: <code>npm i</code></li>
 <li>Start: <code>npm start</code></li>
 </ol>
@@ -220,15 +221,14 @@
 <pre class="prettyprint source lang-javascript"><code>{
     from: 'user abc',
     text: 'question xyz',
-    bots: {},
     action: '',
     entities: [],
     nonEntities: []
-}</code></pre><p>The language module fills action/entities/nonEntities fields information, and <code>bots</code> property with a list of compatible <strong>communication modules</strong>. By default, following rules apply:</p>
+}</code></pre><p>The language module fills entities/nonEntities fields information, and returns a list of compatible intents (<strong>communication module</strong> / <strong>action</strong>). By default, following rules apply:</p>
 <ul>
 <li>if none or 3+ modules are compatible, will return <code>brain.message.unknown</code> configured message;</li>
-<li>if 2 modules are compatible, will return help text from this modules, for user refinement;</li>
-<li>if only one module is compatible, it will be invoked to format a reply.</li>
+<li>if 2 modules/actions are compatible, will return respective help text, for user refinement;</li>
+<li>if only one module/action is compatible, it will be invoked to format a reply.</li>
 </ul>
 <h3>Collaborative Work</h3><p>The framework was designed to allow multiple concurrent development on the same repository. To accomplish this, follow these steps:</p>
 <ul>

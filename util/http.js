@@ -41,7 +41,8 @@ function getGeneric(lib, ii, cb) {
 }
 
 /**
- * Get HTTP/HTTPS data.
+ * Get HTTP/HTTPS data.<br>
+ * Remark: use 'file://' for local test automation.
  * @static
  * @param {Object} ii - Input Information
  * @param {string} ii.url - URL ('http://', 'https://' or 'file://')

@@ -91,33 +91,35 @@ function classify(dialog, cb) {
     if (!oo.subject) return cb();
 
     // allow multiple resolution
+    let intents = [];
     let match = 0;
-    for (let name in _bots) {
-        let bot = _bots[name];
+    for (let id in _bots) {
+        let bot = _bots[id];
         let iKey = 0; // loop keywords
         while (iKey < bot.keywords.length) {
             let sKey = bot.keywords[iKey];
 
             // bot/subject check
             if (oo.subject === sKey) {
-                // add bot reference
-                dialog.bots[name] = bot;
                 match++;
 
-                // action check
-                if (!dialog.action && oo.tokens.length > 0) {
-                    if (!bot.actions)
-                        dialog.action = oo.tokens[0];
-                    else
-                        dialog.action = firstActionWithSomeToken(bot.actions, oo.tokens);
+                // add bot reference
+                let intent = {
+                    bot_id: id
                 }
+
+                // action check
+                if (oo.tokens.length > 0) {
+                    if (!bot.actions)
+                        intent.action = oo.tokens[0];
+                    else
+                        intent.action = firstActionWithSomeToken(bot.actions, oo.tokens);
+                }
+                intents.push(intent);
             }
             iKey++;
         }
     }
 
-    if (match == 0)
-        return cb();
-    else
-        return cb(null, dialog);
+    return cb(null, intents);
 }
