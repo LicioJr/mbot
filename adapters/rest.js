@@ -15,6 +15,7 @@ module.exports = {
 }
 
 // test [curl -is "http://localhost:8080/mbot?from=me&text=%23echo"]
+// quit [curl -is "http://localhost:8080/mbot?from=admin@localhost&text=q"]
 
 // imports
 let log = require('../lib').logger(),
@@ -38,6 +39,13 @@ function init(config_adapter, cb) {
 
             _listener(request, function(er, oo) {
                 res.setHeader('Content-Type', 'application/json');
+
+                // custom headers
+                if (config_adapter.headers) {
+                    for (let header in config_adapter.headers)
+                        res.setHeader(header, config_adapter.headers[header]);
+                }
+                
                 if (er) { // close
                     res.statusCode = 410; // Gone
                     res.end('bye');

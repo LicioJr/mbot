@@ -14,7 +14,14 @@ NPM Package: [https://www.npmjs.com/package/mbot](https://www.npmjs.com/package/
 
 1. Clone the [repository](https://github.com/liciojr/mbot);
 2. Install dependencies: `npm i`
-3. Start: `npm start`
+3. Start with adapters/console (*): `npm start`
+
+(*) other adapters (see "Adapters" section for custom configuration):
+* adapters/rest: `npm run start-rest`
+    * see `adapter` key configuration in **config/core/brain.rest.json**
+* adapters/xmpp: `npm run start-xmpp`
+    * see `adapter` key configuration in **config/core/brain.xmpp.json**
+    * require a XMPP server (e.g. [Openfire](http://www.igniterealtime.org/projects/openfire/))
 
 ### New Project
 
@@ -38,22 +45,28 @@ NPM Package: [https://www.npmjs.com/package/mbot](https://www.npmjs.com/package/
 * global filesystem overlay;
 * automatic lifecycle management with asynchronous init/dispose;
 * extensible adapters (e.g. console, rest, xmpp, test);
-* helper plugins (e.g. logger, HTML parser/scraper, spreadsheet reader, test stub, HTTP/HTTPS).
+* helper plugins (e.g. logger, HTML parser/scraper, spreadsheet reader, test stub, HTTP/HTTPS consumer).
 
 ### Configuration
 
 * plain [JSON](http://www.json.org/) format;
 * standard path convention (`/config/dir/name.{env}.json`);
-* extensible configuration, with **MBOT_NODE_ENV** and **MBOT_NODE_ENV_ALT** environment variables (allow partial redefinition);
+* extensible configuration, with **MBOT_NODE_ENV** and **MBOT_NODE_ENV_ALT** environment variables (allow partial redefinition, with ALT fallback);
 * built-in environments:
     * `dev`: development (default)
-    * `tst`: test automation
-    * `prd`: production
+    * `tmp`: temporary (git ignored)
+    * `tst`: test automation (with nlp/hashtag)
+    * `tst_bayes`: test automation (with nlp/bayes)
+    * `rest`: rest adapter
+    * `xmpp`: xmpp adapter
+    * `template`: custom template
+    * `prd`: production (suggested)
 * automatic init setup with `config` modules property;
 * system variable support in any value, replaced at runtime in `mbot.config` loader:
-```javascript
+```json
 {
     "key": "${ENV_VAR_X}"
+}
 ```
 
 ### Logging
@@ -113,7 +126,10 @@ Built-in adapters:
     "adapter": {
         "type": "rest",
         "get": "/mbot",
-        "port": 8080
+        "port": 8080,
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
     }
 ```
 * **test.js** - Test automation adapter, configuration example:
@@ -167,7 +183,7 @@ For each request, the main controller creates a **dialog** object with some prop
 The language module fills entities/nonEntities fields information, and returns a list of compatible intents (**communication module** / **action**). By default, following rules apply:
 
 * if none or 3+ modules are compatible, will return `brain.message.unknown` configured message;
-* if 2 modules/actions are compatible, will return respective help text, for user refinement;
+* if 2 modules/actions are compatible, will return `brain.message.refine` and respective help text, for user refinement;
 * if only one module/action is compatible, it will be invoked to format a reply.
 
 ### Collaborative Work

@@ -1,9 +1,7 @@
 {
     "version": 1,
     "loader": {
-        "bot_modules": {
-            "examples": "."
-        }
+        "bot_modules": "*"
     },
     "logger": {
         "type": "winston",
@@ -12,7 +10,7 @@
             "loggers": {
                 "file": {
                     "label": "mbot",
-                    "filename": "tst.log",
+                    "filename": ".tmp/tst.log",
                     "level": "error"
                 }
             }

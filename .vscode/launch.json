@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch (dev)",
+            "name": "Launch (tmp/dev)",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/server.js",
@@ -14,6 +14,30 @@
             "internalConsoleOptions": "neverOpen",
             "env": {
                 "MBOT_NODE_ENV": "tmp"
+            }
+        },
+        {
+            "name": "Launch (rest/dev)",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/server.js",
+            "cwd": "${workspaceRoot}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "MBOT_NODE_ENV": "rest"
+            }
+        },
+        {
+            "name": "Launch (xmpp/dev)",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/server.js",
+            "cwd": "${workspaceRoot}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "MBOT_NODE_ENV": "xmpp"
             }
         },
         {

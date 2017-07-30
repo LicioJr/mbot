@@ -6,7 +6,7 @@ node_modules
 .jsdoc
 .tmp
 docker-compose.yml
-docs/fonts/*
+docs/fonts/glyphicons-halflings-regular.svg
 docs/styles/*
 !docs/styles/site.cosmo.css
 !docs/styles/sunlight.default.css

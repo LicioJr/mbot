@@ -100,8 +100,20 @@
 <h2>Setup</h2><h3>Quick Start</h3><ol>
 <li>Clone the <a href="https://github.com/liciojr/mbot">repository</a>;</li>
 <li>Install dependencies: <code>npm i</code></li>
-<li>Start: <code>npm start</code></li>
+<li>Start with adapters/console (*): <code>npm start</code></li>
 </ol>
+<p>(*) other adapters (see &quot;Adapters&quot; section for custom configuration):</p>
+<ul>
+<li>adapters/rest: <code>npm run start-rest</code><ul>
+<li>see <code>adapter</code> key configuration in <strong>config/core/brain.rest.json</strong></li>
+</ul>
+</li>
+<li>adapters/xmpp: <code>npm run start-xmpp</code><ul>
+<li>see <code>adapter</code> key configuration in <strong>config/core/brain.xmpp.json</strong></li>
+<li>require a XMPP server (e.g. <a href="http://www.igniterealtime.org/projects/openfire/">Openfire</a>)</li>
+</ul>
+</li>
+</ul>
 <h3>New Project</h3><ol>
 <li>Create a project:<ul>
 <li><code>npm init -y</code>;</li>
@@ -130,21 +142,27 @@
 <li>global filesystem overlay;</li>
 <li>automatic lifecycle management with asynchronous init/dispose;</li>
 <li>extensible adapters (e.g. console, rest, xmpp, test);</li>
-<li>helper plugins (e.g. logger, HTML parser/scraper, spreadsheet reader, test stub, HTTP/HTTPS).</li>
+<li>helper plugins (e.g. logger, HTML parser/scraper, spreadsheet reader, test stub, HTTP/HTTPS consumer).</li>
 </ul>
 <h3>Configuration</h3><ul>
 <li>plain <a href="http://www.json.org/">JSON</a> format;</li>
 <li>standard path convention (<code>/config/dir/name.{env}.json</code>);</li>
-<li>extensible configuration, with <strong>MBOT_NODE_ENV</strong> and <strong>MBOT_NODE_ENV_ALT</strong> environment variables (allow partial redefinition);</li>
+<li>extensible configuration, with <strong>MBOT_NODE_ENV</strong> and <strong>MBOT_NODE_ENV_ALT</strong> environment variables (allow partial redefinition, with ALT fallback);</li>
 <li>built-in environments:<ul>
 <li><code>dev</code>: development (default)</li>
-<li><code>tst</code>: test automation</li>
-<li><code>prd</code>: production</li>
+<li><code>tmp</code>: temporary (git ignored)</li>
+<li><code>tst</code>: test automation (with nlp/hashtag)</li>
+<li><code>tst_bayes</code>: test automation (with nlp/bayes)</li>
+<li><code>rest</code>: rest adapter</li>
+<li><code>xmpp</code>: xmpp adapter</li>
+<li><code>template</code>: custom template</li>
+<li><code>prd</code>: production (suggested)</li>
 </ul>
 </li>
 <li>automatic init setup with <code>config</code> modules property;</li>
-<li>system variable support in any value, replaced at runtime in <code>mbot.config</code> loader:<pre class="prettyprint source lang-javascript"><code>{
-  &quot;key&quot;: &quot;${ENV_VAR_X}&quot;</code></pre></li>
+<li>system variable support in any value, replaced at runtime in <code>mbot.config</code> loader:<pre class="prettyprint source lang-json"><code>{
+  &quot;key&quot;: &quot;${ENV_VAR_X}&quot;
+}</code></pre></li>
 </ul>
 <h3>Logging</h3><ul>
 <li>'util/logger' helper with integrated configuration;</li>
@@ -188,7 +206,10 @@
 <li><strong>rest.js</strong> - REST service adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
       &quot;type&quot;: &quot;rest&quot;,
       &quot;get&quot;: &quot;/mbot&quot;,
-      &quot;port&quot;: 8080
+      &quot;port&quot;: 8080,
+      &quot;headers&quot;: {
+          &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+      }
   }</code></pre></li>
 <li><strong>test.js</strong> - Test automation adapter, configuration example:<pre class="prettyprint source lang-json"><code>  &quot;adapter&quot;: {
       &quot;type&quot;: &quot;test&quot;,
@@ -227,7 +248,7 @@
 }</code></pre><p>The language module fills entities/nonEntities fields information, and returns a list of compatible intents (<strong>communication module</strong> / <strong>action</strong>). By default, following rules apply:</p>
 <ul>
 <li>if none or 3+ modules are compatible, will return <code>brain.message.unknown</code> configured message;</li>
-<li>if 2 modules/actions are compatible, will return respective help text, for user refinement;</li>
+<li>if 2 modules/actions are compatible, will return <code>brain.message.refine</code> and respective help text, for user refinement;</li>
 <li>if only one module/action is compatible, it will be invoked to format a reply.</li>
 </ul>
 <h3>Collaborative Work</h3><p>The framework was designed to allow multiple concurrent development on the same repository. To accomplish this, follow these steps:</p>

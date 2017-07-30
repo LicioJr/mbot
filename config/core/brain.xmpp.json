@@ -3,6 +3,7 @@
         "message": {
             "welcome": "What can I do for you today?",
             "unknown": "Could you please be more specific?",
+            "refine": "Please, refine your request:",
             "error": "Sorry, module '{0}' has failed."
         },
         "admin": {

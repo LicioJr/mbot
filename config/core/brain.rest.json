@@ -3,6 +3,7 @@
         "message": {
             "welcome": "What can I do for you today?",
             "unknown": "Could you please be more specific?",
+            "refine": "Please, refine your request:",
             "error": "Sorry, module '{0}' has failed."
         },
         "admin": {
@@ -26,7 +27,10 @@
     "adapter": {
         "type": "rest",
         "get": "/mbot",
-        "port": 8080
+        "port": 8080,
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        }
     },
     "db": {
         "adapters": {

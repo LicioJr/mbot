@@ -14,7 +14,7 @@
                 },
                 "file": {
                     "label": "mbot",
-                    "filename": "dev.log"
+                    "filename": ".tmp/dev.log"
                 }
             }
         }
