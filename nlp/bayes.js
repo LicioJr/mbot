@@ -13,7 +13,8 @@
 // imports
 let mbot = require('../lib'),
     log = mbot.logger(),
-    nlp = mbot.load('util/nlp'); // generic helper
+    nlp = mbot.load('util/nlp'), // generic helper
+    BayesClassifier = nlp.BayesClassifier();
 
 module.exports = {
     init,
@@ -24,6 +25,7 @@ module.exports = {
 let _cfg,
     _bots,
     _stemmer,
+    _cache_path,
     _classifier;
 
 function init(ii, cb) {
@@ -33,8 +35,22 @@ function init(ii, cb) {
     // create stemmer/classifier
     _cfg.stemmer = _cfg.stemmer || 'node_modules/natural/lib/natural/stemmers/porter_stemmer.js';
     _stemmer = mbot.load(_cfg.stemmer);
-    _classifier = new nlp.BayesClassifier(_stemmer);
     
+    // verify cache
+    if (_cfg.cache) {
+        _cache_path = mbot.path(_cfg.cache);
+        // file exists?
+        if (_cache_path) {
+            return BayesClassifier.load(_cache_path, null, (er, oo) => {
+                if (er) return cb(er);
+                _classifier = oo;
+                return cb();
+            });
+        }
+    }
+
+    _classifier = new BayesClassifier(_stemmer);
+
     // create training docs
     for (let id in _bots) {
         let bot = _bots[id];
@@ -67,10 +83,21 @@ function init(ii, cb) {
         }
     };
 
+    // import corpora
+
+
+    // training
     _classifier.train();
 
-    let raw = JSON.stringify(_classifier);
-    //log.info(`[nlp/bayes] classifier: ${raw}`);
+    // cache not found?
+    if (_cfg.cache && !_cache_path) {
+        return _classifier.save(_cfg.cache, (er, oo) => {
+            cb(er);
+        });
+        //let dump = JSON.stringify(_classifier);
+        //log.info(`[nlp/bayes] classifier: ${raw}`);
+    }
+    
     return cb();
 }
 

@@ -174,17 +174,20 @@ For each request, the main controller creates a **dialog** object with some prop
 {
     from: 'user abc',
     text: 'question xyz',
+    state: {},
     action: '',
     entities: [],
     nonEntities: []
 }
 ```
 
-The language module fills entities/nonEntities fields information, and returns a list of compatible intents (**communication module** / **action**). By default, following rules apply:
+The NLP module fills entities/nonEntities fields information, and returns a list of compatible intents (**communication module** / **action**). By default, following rules apply:
 
 * if none or 3+ modules are compatible, will return `brain.message.unknown` configured message;
 * if 2 modules/actions are compatible, will return `brain.message.refine` and respective help text, for user refinement;
 * if only one module/action is compatible, it will be invoked to format a reply.
+
+A communication module can use the `state` dictionary to hold user/session information (see `bot_modules/examples/echo_bot`).
 
 ### Collaborative Work
 
@@ -220,6 +223,7 @@ Configure a Natural Language Processing module with `nlp.type` key in `config/co
 ```json
     "nlp": {
         "type": "bayes",
+        "cache": ".tmp/bayes_cache.json",
         "stemmer": "node_modules/natural/lib/natural/stemmers/porter_stemmer.js"
     }
 ```
@@ -236,10 +240,10 @@ Current Named Entity Recognition use a simplified rule set:
 * text between quotes, example:
     * `how old is "Peter Parker"?`
         * entities `["Peter Parker"]`
-* simple number, example:
+* words starting with digit, example:
     * `sum 5 and 6`
         * entities `["5", "6"]`
-* uppercase word, except sentence starter, example:
+* words starting with uppercase, except at the beginning of a sentence, and with more than one letter, example:
     * `What is Peter phone?`
         * entities `["Peter"]`
 

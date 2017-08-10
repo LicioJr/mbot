@@ -19,16 +19,15 @@ let natural = require('natural');
 
 // private
 let _reQuotes = /".*?"/g; // /(?:")(.*?)(?:")/g; 
-let _reNumbers = /\b\d+/g;
+let _reNumbers = /\b\d\S*/g;
 let _reUppercases = /\b(?!^)[A-Z][#\w]+/g;
 
 /**
- * Create a Bayes Classifier object.
+ * Returns a Bayes Classifier prototype.
  * @static
- * @param {Object=} stemmer - Optional stemmer.
  */
-function BayesClassifier(stemmer) {
-    return new natural.BayesClassifier(stemmer);
+function BayesClassifier() {
+    return natural.BayesClassifier;
 }
 
 // { text: '' } -> { entities: [], nonEntities: [] }

@@ -42,18 +42,18 @@ entitiesExtraction([
         nonEntities: ['end', 'quote']
     },
     {
-        text: '123 begin numeric',
-        entities: ['123'],
+        text: '12X3 1 1X begin numeric',
+        entities: ['12X3', '1', '1X'],
         nonEntities: ['begin', 'numeric']
     },
     {
-        text: 'middle 123 numeric',
-        entities: ['123'],
+        text: 'middle 12X3 1 1X numeric',
+        entities: ['12X3', '1', '1X'],
         nonEntities: ['middle', 'numeric']
     },
     {
-        text: 'end numeric 123',
-        entities: ['123'],
+        text: 'end numeric 1 1X 12X3',
+        entities: ['12X3', '1', '1X'],
         nonEntities: ['end', 'numeric']
     },
     {
@@ -70,5 +70,10 @@ entitiesExtraction([
         text: 'end uppercase Abc',
         entities: ['Abc'],
         nonEntities: ['end', 'uppercase']
+    },
+    {
+        text: 'Multi A Ab uppercase Abc',
+        entities: ['Ab', 'Abc'],
+        nonEntities: ['multi', 'a', 'uppercase']
     }
 ]);
